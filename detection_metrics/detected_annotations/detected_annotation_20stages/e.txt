@@ -1,0 +1,10 @@
+insect 1 156 18 21 21
+insect 1 68 39 25 25
+insect 1 192 70 21 21
+insect 1 178 44 22 22
+insect 1 268 59 26 26
+insect 1 126 78 25 25
+insect 1 261 83 24 24
+insect 1 256 63 43 43
+insect 1 208 161 22 22
+insect 1 241 166 21 21

@@ -242,6 +242,161 @@ image a                             | image b                              |imag
 As you can see, the 15-stage cascade is much better than the 5-stage cascade and also detects a few more insects than the 20-stage cascade.
 
 ***
+
+## <ins>Evaluation of Results</ins>:
+
+Let's evaluate the quality of the detectors and compare the results obtained from the different cascades. Once the model has been trained, the accuracy of the object detector must be tested. **[Open-Source Visual Interface for Object Detection Metrics](https://github.com/rafaelpadilla/review_object_detection_metrics)** was used for this purpose. For its use, please refer to the github repository. All results are located in the **[detection_metrics](./detection_metrics/)** folder.
+
+Below, some concepts and parameters that will be used to evaluate the detectors.
+
+
+
+
+***
+### **Intersection over Union (IOU)**
+
+IOU measures the overlap between 2 two bounding boxes. We use that to measure how much our predicted bounding box overlaps with the ground truth (the real object).
+
+IOU is given by the overlapping area between the predicted bounding box and the ground truth bounding box divided by the area of union between them:
+
+![](./otherImages/formula_iou_2.png)
+
+Below is a comparison of the values given by the different cascades on the same images:
+
+![](./otherImages/comparison_between_iou.png)
+
+Usually a good detector is characterised by IOU values close to 1.
+In these examples we deviate from these values because the images and objects to be detected are very small. Although it may not look like it, there is a big difference between the detected and ground truth areas.
+
+However, it is noticeable that the IOU values for the 15- and 20-stage cascade are much better than those obtained from the 5-stage cascade.
+
+***
+
+### **True Positive, FAlse Positive, False Negative and True Negative**
+
+- **True Positive (TP)**: A correct detection. Detection with IOU ≥ threshold
+- **False Positive (FP)**: A wrong detection. Detection with IOU < threshold
+- **False Negative (TN)**: A ground truth not detected
+- **True Negative (TN)**: Does not apply. It would represent a corrected misdetection
+
+By applying the IOU and setting the desired threshold we can tell if a detection is valid (True Positive) or not (False Positive).
+
+
+***
+
+### **Precision**
+
+Precision is the ability of a model to identify only the relevant objects. It is the percentage of correct positive predictions and is given by:
+
+![](./otherImages/precision_formula.png)
+
+***
+
+### **Recall**
+
+Recall is the ability of a model to find all the relevant cases (all ground truth bounding boxes). It is the percentage of true positive detected among all relevant ground truths and is given by:
+
+![](./otherImages/recall_formula.png)
+
+***
+
+Here is a small example to illustrate these parameters which will then be used to determine the accuracy of the various cascades. 
+
+Let us take the 15-stage cascade as a reference and consider all the detections in the test image f. In the following image there are a total of 12 insects. The object detector consisting of 15 stages predicted 10 objects represented by the red rectangles. These values were obtained via the **[intersection_over_union](./intersection_over_union.py)** function.
+
+![](./otherImages/tabella_iou.png)
+
+To evaluate the precision and recall of the 10 detections, it is necessary to establish an IOU threshold t, which will classify each detection as TP or FP. In this example, let us first consider as TP the detections with IOU > 30%, that is t = 0.3, then we calculate the precision and recall for each accumulated detection a shown in the table below:
+
+![](./otherImages/tabella_iou_30.png)
+
+Consider detection D and H. In the first case the precision is 5/5 = 1.000 while the recall is 5/12 = 0.4167.  In the second case the precision is 7/8 = 0.8750 and the recall 7/12 = 0.5833. Note that the denominator of the recall is always 12, i.e. the total number of Ground Truths.
+
+By choosing a more restrictive IOU threshold, different precision x recall values can be obtained. The following table computes the precision and recall values with a more strict IOU threshold of t = 0.40. By that, it is noticeable the occurrence of more FP detections, reducing the recall.
+
+![](./otherImages/tabella_iou_40.png)
+
+Plotting the precision and recall values we have the Precision x Recall curve.
+
+***
+
+### **Precision x Recall curve**
+
+The Precision x Recall curve is a good way to evaluate the performance of an object detector. 
+
+An object detector of a particular class is considered good if its precision stays high as recall increases. Another way to identify a good object detector is to look for a detector that can identify only relevant objects (high precision), finding all ground truth objects (high recall).
+
+A poor object detector needs to increase the number of detected objects (increasing False Positives = lower precision) in order to retrieve all ground truth objects (high recall). That's why the Precision x Recall curve usually starts with high precision values, decreasing as recall increases.
+
+<p align="center">
+  <img width="833" height="400" src="./otherImages/precisionXrecall_curve.png">
+</p>
+
+- With a less restrictive IOU threshold (t = 0.30), higher recall values can be obtained with the highest precision. In other words, the detector can retrieve about 75.93% of the total ground truths without any miss detection.
+- Using t = 0.35, the detector is more sensitive with different confidence values. This is explained by the amount of ups and downs of the curve.
+
+***
+
+### **Average Precision**
+
+Another way to compare the performance of object detectors is to calculate the area under the curve (AUC) of the Precision x Recall curve. As Precision x Recall functions are often zigzag curves going up and down, comparing different curves (different detectors) is not an easy task. That's why Average Precision (AP), a numerical metric, can also help us compare different detectors. 
+
+Different methods can be applied to measure the AUC of the precision x recall curve. Considering the _N-point interpolation_ to calculate the AP with _N = 11_, the interpolation measures the recall in the points L=[0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0], and considering the _All-point interpolation_ approach, all points are considered.
+
+![](./otherImages/average_precision.png)
+
+When an IOU threshold t = 0.3 was applied, an AP value = 75.93% was achieved, while with a threshold of t = 0.35, an AP value = 53.81% was achieved.
+
+***
+### **Other Metrics**
+
+- #### **AP@.5 and AP@.75**
+These two metrics evaluate the precision x curve differently than the PASCAL VOC metrics. In this method, the interpolation is performed in N=101 recall points. Then, the computed results for each class are summed up and divided by the number of classes.
+
+The only difference between AP@.5 and AP@.75 is the applied IOU thresholds. AP@.5 uses t=0.5 whereas AP@.75 applies t=0.75. These metrics are commonly used to report detectAPS, APM and APLions performed in the COCO dataset.
+
+- #### **APS, APM and APL**
+APS only evaluates the ground-truth objects of small sizes (area < 32^2 pixels); APM considers only ground-truth objects of medium sizes (32^2 < area < 96^2 pixels); APL considers large ground-truth objects (area > 96^2) only.
+
+When evaluating objects of a given size, objects of the other sizes (both ground-truth and predicted) are not considered in the evaluation. This metric is also part of the COCO evaluation dataset.
+
+***
+
+### **Cascade Comparison**
+
+Below is a comparison of different cascades with different IOU threshold values. For the following results, the ground truths of images d, e and f from the testImages folder were taken in consideration as well as all detections obtained from the 5, 15 and 20 stage detectors.
+
+![](./otherImages/ground_truth_detections_5stages.png)
+
+![](./otherImages/ground_truth_detections_15stages.png)
+
+![](./otherImages/ground_truth_detections_20stages.png)
+
+There are a total of 34 ground truths delimited by the green boundind boxes and which will appear as denominators in the recall formula.
+
+Detections change in number and shape from one cascade to another (the higher the number of stages, the lower the number of detections) and are represented by red boundaries and they should be evaluated according to the IOU threshold chosen to determine whether they are TP or FP. Depending on the number of TP and FP there will be different Precision and Recall values and therefore different Precision x Recall curves.
+
+In this example, IOU values of 0.30, 0.35, 0.4 were chosen for comparison.
+
+![](./otherImages/comparison_40_iou.png)
+
+![](./otherImages/comparison_35_iou.png)
+
+![](./otherImages/comparison_30_iou.png)
+
+- The results obtained with the 5-stage cascade are practically negligible with each IOU threshold value.
+- For IOU = 0.40, the values obtained from the 20-stage cascade are slightly better than those of the 15-stage cascade, as it had better IOU values even though it detected fewer objects than the 15-stage cascade. Certainly, many of the 27 detections from the 15-stage cascade were judged FP (as shown in the table above).
+
+>**_Note:_** generally, detections are sorted by confidence values, i.e. by the probability of having detected the object we were looking for. Thus, the Precision x Recall curve always starts at value 1 because the first detections to be judged are always TP.
+
+>In our case, all samples were assigned a single confidence value of one, so there was no real sorting, so the atypical shape of the curve shown by the 15-stage cascade with threshold IOU = 0.40 is due to the fact that we misclassified our 'most likely' example from our test set. In this case we have both 0-th Recall and 0-th Precision, i.e. we start at point (0,0).
+
+- With regard to IOU = 0.35, both the 15-stage and 20-stage cascades improved. For the 20-stage cascade, only some of the detections that had previously been FP became TP. While in the 15-stage cascade, many FP became TP, and this combined with the higher number of detections resulted in a higher AP value as shown in the curve.
+
+- For IOU = 0.30 the same observations are valid, meaning that there are improvements for the 15-stage cascade because many readings that were previously FP are now TP. In the 20-stage cascade there was no progress by reducing the threshold further, because the ratio of TP to FP remained the same.
+
+
+***
 ## <ins>Xml parsing</ins>:
 
 Finally, let's take a look at how the data is stored inside the xml file. I focused on the values contained in the <**stages**> and <**features**> branches.

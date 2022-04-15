@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<annotations>
+  <version>1.1</version>
+  <meta>
+    <task>
+      <id>232662</id>
+      <name>dataSet creation</name>
+      <size>3</size>
+      <mode>annotation</mode>
+      <overlap>0</overlap>
+      <bugtracker></bugtracker>
+      <created>2022-04-04 22:51:54.451753+01:00</created>
+      <updated>2022-04-04 23:04:03.868223+01:00</updated>
+      <subset>default</subset>
+      <start_frame>0</start_frame>
+      <stop_frame>2</stop_frame>
+      <frame_filter></frame_filter>
+      <segments>
+        <segment>
+          <id>345737</id>
+          <start>0</start>
+          <stop>2</stop>
+          <url>https://cvat.org/?id=345737</url>
+        </segment>
+      </segments>
+      <owner>
+        <username>olmobaldoni</username>
+        <email>olmo.baldoni@gmail.com</email>
+      </owner>
+      <assignee></assignee>
+      <labels>
+        <label>
+          <name>insect</name>
+          <color>#3df53d</color>
+          <attributes>
+          </attributes>
+        </label>
+      </labels>
+    </task>
+    <dumped>2022-04-04 23:05:26.729530+01:00</dumped>
+  </meta>
+  <image id="0" name="d.jpg" width="320" height="240">
+    <box label="insect" occluded="0" source="manual" xtl="60.96" ytl="190.83" xbr="81.05" ybr="200.53" z_order="0">
+    </box>
+    <box label="insect" occluded="0" source="manual" xtl="138.19" ytl="161.05" xbr="153.10" ybr="170.10" z_order="0">
+    </box>
+    <box label="insect" occluded="0" source="manual" xtl="221.65" ytl="60.96" xbr="232.39" ybr="75.16" z_order="0">
+    </box>
+    <box label="insect" occluded="0" source="manual" xtl="184.25" ytl="208.84" xbr="199.49" ybr="218.19" z_order="0">
+    </box>
+    <box label="insect" occluded="0" source="manual" xtl="156.55" ytl="39.84" xbr="175.25" ybr="52.30" z_order="0">
+    </box>
+    <box label="insect" occluded="0" source="manual" xtl="72.39" ytl="31.52" xbr="87.28" ybr="44.34" z_order="0">
+    </box>
+    <box label="insect" occluded="0" source="manual" xtl="168.67" ytl="80.01" xbr="179.06" ybr="92.48" z_order="0">
+    </box>
+  </image>
+  <image id="1" name="e.jpg" width="320" height="240">
+    <box label="insect" occluded="0" source="manual" xtl="73.08" ytl="44.34" xbr="90.74" ybr="60.61" z_order="0">
+    </box>
+    <box label="insect" occluded="0" source="manual" xtl="158.62" ytl="21.83" xbr="176.30" ybr="32.91" z_order="0">
+    </box>
+    <box label="insect" occluded="0" source="manual" xtl="158.59" ytl="0.67" xbr="174.21" ybr="8.32" z_order="0">
+    </box>
+    <box label="insect" occluded="0" source="manual" xtl="181.83" ytl="49.19" xbr="198.45" ybr="59.92" z_order="0">
+    </box>
+    <box label="insect" occluded="0" source="manual" xtl="130.23" ytl="81.74" xbr="147.89" ybr="97.67" z_order="0">
+    </box>
+    <box label="insect" occluded="0" source="manual" xtl="92.48" ytl="157.93" xbr="107.02" ybr="171.78" z_order="0">
+    </box>
+    <box label="insect" occluded="0" source="manual" xtl="193.95" ytl="73.43" xbr="209.88" ybr="90.05" z_order="0">
+    </box>
+    <box label="insect" occluded="0" source="manual" xtl="238.28" ytl="50.23" xbr="251.09" ybr="59.23" z_order="0">
+    </box>
+    <box label="insect" occluded="0" source="manual" xtl="138.54" ytl="123.65" xbr="148.58" ybr="140.27" z_order="0">
+    </box>
+    <box label="insect" occluded="0" source="manual" xtl="211.61" ytl="165.20" xbr="231.70" ybr="181.48" z_order="0">
+    </box>
+    <box label="insect" occluded="0" source="manual" xtl="269.79" ytl="62.69" xbr="290.92" ybr="82.43" z_order="0">
+    </box>
+    <box label="insect" occluded="0" source="manual" xtl="263.56" ytl="83.82" xbr="284.68" ybr="103.21" z_order="0">
+    </box>
+    <box label="insect" occluded="0" source="manual" xtl="244.86" ytl="170.40" xbr="260.10" ybr="184.25" z_order="0">
+    </box>
+    <box label="insect" occluded="0" source="manual" xtl="181.13" ytl="208.84" xbr="193.60" ybr="220.61" z_order="0">
+    </box>
+    <box label="insect" occluded="0" source="manual" xtl="177.32" ytl="225.12" xbr="190.83" ybr="240.00" z_order="0">
+    </box>
+  </image>
+  <image id="2" name="f.jpg" width="320" height="240">
+    <box label="insect" occluded="0" source="manual" xtl="163.82" ytl="11.44" xbr="180.44" ybr="23.56" z_order="0">
+    </box>
+    <box label="insect" occluded="0" source="manual" xtl="142.69" ytl="28.06" xbr="152.04" ybr="40.87" z_order="0">
+    </box>
+    <box label="insect" occluded="0" source="manual" xtl="142.69" ytl="61.31" xbr="159.00" ybr="72.39" z_order="0">
+    </box>
+    <box label="insect" occluded="0" source="manual" xtl="126.76" ytl="98.36" xbr="138.88" ybr="111.52" z_order="0">
+    </box>
+    <box label="insect" occluded="0" source="manual" xtl="72.04" ytl="121.22" xbr="86.94" ybr="135.42" z_order="0">
+    </box>
+    <box label="insect" occluded="0" source="manual" xtl="112.56" ytl="144.42" xbr="124.34" ybr="158.62" z_order="0">
+    </box>
+    <box label="insect" occluded="0" source="manual" xtl="160.70" ytl="134.03" xbr="176.29" ybr="149.62" z_order="0">
+    </box>
+    <box label="insect" occluded="0" source="manual" xtl="155.85" ytl="167.63" xbr="173.52" ybr="181.48" z_order="0">
+    </box>
+    <box label="insect" occluded="0" source="manual" xtl="187.37" ytl="150.31" xbr="205.70" ybr="161.05" z_order="0">
+    </box>
+    <box label="insect" occluded="0" source="manual" xtl="176.29" ytl="177.32" xbr="193.60" ybr="192.22" z_order="0">
+    </box>
+    <box label="insect" occluded="0" source="manual" xtl="210.23" ytl="173.86" xbr="228.93" ybr="188.06" z_order="0">
+    </box>
+    <box label="insect" occluded="0" source="manual" xtl="157.93" ytl="199.49" xbr="172.82" ybr="212.65" z_order="0">
+    </box>
+  </image>
+</annotations>
