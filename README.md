@@ -272,7 +272,7 @@ However, it is noticeable that the IOU values for the 15- and 20-stage cascade a
 
 ***
 
-### **True Positive, FAlse Positive, False Negative and True Negative**
+### **True Positive, False Positive, False Negative and True Negative**
 
 - **True Positive (TP)**: A correct detection. Detection with IOU ≥ threshold
 - **False Positive (FP)**: A wrong detection. Detection with IOU < threshold
@@ -310,7 +310,7 @@ To evaluate the precision and recall of the 10 detections, it is necessary to es
 
 ![](./otherImages/tabella_iou_30.png)
 
-Consider detection D and H. In the first case the precision is 5/5 = 1.000 while the recall is 5/12 = 0.4167.  In the second case the precision is 7/8 = 0.8750 and the recall 7/12 = 0.5833. Note that the denominator of the recall is always 12, i.e. the total number of Ground Truths.
+Consider detection E and H. In the first case the precision is 5/5 = 1.000 while the recall is 5/12 = 0.4167.  In the second case the precision is 7/8 = 0.8750 and the recall 7/12 = 0.5833. Note that the denominator of the recall is always 12, i.e. the total number of Ground Truths.
 
 By choosing a more restrictive IOU threshold, different precision x recall values can be obtained. The following table computes the precision and recall values with a more strict IOU threshold of t = 0.40. By that, it is noticeable the occurrence of more FP detections, reducing the recall.
 
@@ -328,9 +328,7 @@ An object detector of a particular class is considered good if its precision sta
 
 A poor object detector needs to increase the number of detected objects (increasing False Positives = lower precision) in order to retrieve all ground truth objects (high recall). That's why the Precision x Recall curve usually starts with high precision values, decreasing as recall increases.
 
-<p align="center">
-  <img width="833" height="400" src="./otherImages/precisionXrecall_curve.png">
-</p>
+![](./otherImages/precisionXrecall_curve.png)
 
 - With a less restrictive IOU threshold (t = 0.30), higher recall values can be obtained with the highest precision. In other words, the detector can retrieve about 75.93% of the total ground truths without any miss detection.
 - Using t = 0.35, the detector is more sensitive with different confidence values. This is explained by the amount of ups and downs of the curve.
@@ -350,15 +348,23 @@ When an IOU threshold t = 0.3 was applied, an AP value = 75.93% was achieved, wh
 ***
 ### **Other Metrics**
 
-- #### **AP@.5 and AP@.75**
-These two metrics evaluate the precision x curve differently than the PASCAL VOC metrics. In this method, the interpolation is performed in N=101 recall points. Then, the computed results for each class are summed up and divided by the number of classes.
+The Pascal VOC challenge mAP metric can be seen as a standard metric for evaluating the performance of object detectors  and defines the mAP metric using a single IoU threshold.
 
-The only difference between AP@.5 and AP@.75 is the applied IOU thresholds. AP@.5 uses t=0.5 whereas AP@.75 applies t=0.75. These metrics are commonly used to report detectAPS, APM and APLions performed in the COCO dataset.
+However, the COCO challenge defines several mAP metrics using different thresholds, including:
 
-- #### **APS, APM and APL**
-APS only evaluates the ground-truth objects of small sizes (area < 32^2 pixels); APM considers only ground-truth objects of medium sizes (32^2 < area < 96^2 pixels); APL considers large ground-truth objects (area > 96^2) only.
+- **_AP<sup> IoU = .50:.05:.95</sup>:_** corresponds to the average AP for IoU from 0.5 to 0.95 with a step of 0.05 (i.e., 0.50, 0.55, 0.60, ..., 0.95) over a total of 10 thresholds. This is the primary challenge metric;
+- **_AP<sup> IoU = .50</sup>:_** is identical to the Pascal VOC metric;
+- **_AP<sup> IoU = .75</sup>:_** is a strict metric.
 
-When evaluating objects of a given size, objects of the other sizes (both ground-truth and predicted) are not considered in the evaluation. This metric is also part of the COCO evaluation dataset.
+The AP<sup> IoU = .50</sup> and AP<sup> IoU = .75</sup> metrics evaluate the precision x recall curve differently from the PASCAL VOC metric. In this method, interpolation is performed at N=101 recall points. Then, the results calculated for each class are summed and divided by the number of classes.
+
+In addition to different IoU thresholds, there are also mAP calculated across different object scales; these variants of AP are all averaged over 10 IoU thresholds (i.e., 0.50, 0.55, 0.60, …, 0.95):
+
+- **_AP<sup> small</sup>:_** only evaluates the ground-truth objects of small sizes (area < 32^2 pixels);
+- **_AP<sup> medium</sup>:_** considers only ground-truth objects of medium sizes (32^2 < area < 96^2 pixels);
+- **_AP<sup> large</sup>:_** considers large ground-truth objects (area > 96^2) only.
+
+![](./otherImages/coco_metrics.png)
 
 ***
 
@@ -394,6 +400,8 @@ In this example, IOU values of 0.30, 0.35, 0.4 were chosen for comparison.
 - With regard to IOU = 0.35, both the 15-stage and 20-stage cascades improved. For the 20-stage cascade, only some of the detections that had previously been FP became TP. While in the 15-stage cascade, many FP became TP, and this combined with the higher number of detections resulted in a higher AP value as shown in the curve.
 
 - For IOU = 0.30 the same observations are valid, meaning that there are improvements for the 15-stage cascade because many readings that were previously FP are now TP. In the 20-stage cascade there was no progress by reducing the threshold further, because the ratio of TP to FP remained the same.
+
+- The different cascades show the same COCO metrics regardless of the IoU thresholds chosen. This is due to the fact that they are calculated separately from the PASCAL metrics.
 
 
 ***
