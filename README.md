@@ -480,5 +480,5 @@ user@user:~$ python3 xmlConverter.py cascadeXX.xml
 I have also written a small application to obtain the values of each pixel that compose an image. This function was then used for the embedded implementation. To run **[pixels.py](./pixels.py)**: 
 
 ```bash
-user@user:~$ python3 pixels.py X.jpg # image from which we want to obtain pixel values
+user@user:~$ python3 pixels_0.py X.jpg # image from which we want to obtain pixel values
 ```

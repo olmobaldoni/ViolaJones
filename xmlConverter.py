@@ -79,7 +79,7 @@ for i in range(numStages):
 
         # read the feature threshold in "internalNodes"
         thresholdFeature = float(temp1[15])
-        thresholdFeature = int(thresholdFeature*256)
+        thresholdFeature = int(thresholdFeature*4096)
 
         # write the values in the respective lists
         tree_thresh_array.append(thresholdFeature)
