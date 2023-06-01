@@ -276,7 +276,7 @@ However, it is noticeable that the IOU values for the 15- and 20-stage cascade a
 
 - **True Positive (TP)**: A correct detection. Detection with IOU ≥ threshold
 - **False Positive (FP)**: A wrong detection. Detection with IOU < threshold
-- **False Negative (TN)**: A ground truth not detected
+- **False Negative (FN)**: A ground truth not detected
 - **True Negative (TN)**: Does not apply. It would represent a corrected misdetection
 
 By applying the IOU and setting the desired threshold we can tell if a detection is valid (True Positive) or not (False Positive).
